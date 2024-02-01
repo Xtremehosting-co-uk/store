@@ -1,0 +1,16 @@
+<nav>
+	<a class="nav-toggle" id="open-nav" href="#">&#9776;</a>
+	{% assign links = site.pages | where:'lang', page.lang %}
+	{% for link in links %}
+		{% assign class = "" %}
+
+		{% if link.url == page.url %}
+			{% assign class = class | append: " active" %}
+		{% endif %}
+
+		{% if link.layout != 'home' %}
+			<a href="{{ site.baseurl }}{{link.url}}" class="{{ class }}">{{ link.title }}</a>
+		{% endif %}
+	{% endfor %}
+	<a href="#" class="cart snipcart-checkout"><i class="material-icons">shopping_cart</i><span>{{site.t[page.lang].view_cart}}</span></a>
+</nav>

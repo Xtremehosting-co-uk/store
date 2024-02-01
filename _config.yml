@@ -1,0 +1,141 @@
+# ----
+# Site
+
+title: Roger's Potato Shack
+url: "http://turquoise-rook.cloudvent.net/"
+baseurl:
+google_analytics_key:
+google_maps_javascript_api_key:
+snipcart_key: "MzMxN2Y0ODMtOWNhMy00YzUzLWFiNTYtZjMwZTRkZDcxYzM4"
+
+# Values for the jekyll-seo-tag gem (https://github.com/jekyll/jekyll-seo-tag)
+logo: /siteicon.png
+description: Roger's Potato Shack
+author:
+  name: Snipcart's Geeks
+  email: geeks@snipcart.com
+  twitter: snipcart # twitter username without the @ symbol
+social:
+  name: Multilingual Snipcart Template
+  links: Multilingual Snipcart Template
+    - https://github.com/snipcart/demo-cloudcannon
+
+
+langs:
+  - "en"
+  - "fr"
+
+# -----
+# Translations
+t:
+  default_lang: "en"
+  en:
+    title: Roger's Potato Shack
+    buyBtn: Buy it for
+    decimal_sep: '.'
+    change_lang: Switch Language
+    pages_label: Pages
+    view_cart: View Cart
+  fr:
+    title: La Cantine à Roger
+    buyBtn: Acheter pour
+    decimal_sep: ','
+    change_lang: Changer de langue
+    pages_label: Pages
+    view_cart: Voir le panier
+
+# -----
+# Build
+
+collections:
+  products:
+    _hide_content: true
+    output: true
+  categories:
+    output: true
+  pages:
+    output: true
+
+permalink: pretty
+
+defaults:
+  -
+    scope:
+      path: "_categories/fr"
+    values:
+      permalink: "/fr/categories/:title"
+      lang: "fr"
+      layout: "categories"
+  -
+    scope:
+      path: "_categories/en"
+    values:
+      permalink: "/en/categories/:title"
+      lang: "en"
+      layout: "categories"
+  -
+    scope:
+      path: "_products/fr"
+    values:
+      permalink: "/fr/produits/:title"
+      lang: "fr"
+  -
+    scope:
+      path: "_products/en"
+    values:
+      permalink: "/en/products/:title"
+      lang: "en"
+  -
+    scope:
+      path: "_pages/fr"
+    values:
+      permalink: "/fr/:title"
+      lang: "fr"
+      layout: "page"
+  -
+    scope:
+      path: "_pages/en"
+    values:
+      permalink: "/en/:title"
+      lang: "en"
+      layout: "page"
+
+jekyll-archives:
+  enabled:
+    - categories
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENCE
+
+# -----------
+# CloudCannon
+
+social_icons:
+  - Email
+  - Facebook
+  - Google Plus
+  - Instagram
+  - LinkedIn
+  - Pinterest
+  - Tumblr
+  - Twitter
+  - YouTube
+  - RSS
+
+_comments:
+  map: Update the map location and display settings.
+  latitude: Coordinates for the center marker on the map.
+  longitude: Coordinates for the center marker on the map.
+  zoom: The zoom level for the map.
+  pricing_table: Update the information in the pricing tables.
+  highlight: Emphasis the text
+  color: The background color used in the plan name and call to action.
+  new_window: Open link in new window
+  description: This is used for facebook shares of the page and google indexing

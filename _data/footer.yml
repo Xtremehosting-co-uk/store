@@ -1,0 +1,10 @@
+- title: Social
+  links:
+    - name: Snipcart
+      link: 'https://www.facebook.com/Snipcart/'
+      new_window: true
+      social_icon: Facebook
+    - name: "@Snipcart"
+      link: 'https://twitter.com/snipcart'
+      new_window: true
+      social_icon: Twitter
