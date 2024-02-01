@@ -3,7 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: default
 ---
-
+ 
 #### Welcome to the demo page for the an eCommerce site using Jekyll and PayPal. This project is [available on GitHub](https://github.com/theonemule/jekyll-paypal-cart)!
 
 
