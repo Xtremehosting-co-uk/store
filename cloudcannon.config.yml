@@ -1,0 +1,134 @@
+paths:
+  uploads: uploads
+  dam_uploads: ''
+  static: ''
+  dam_static: ''
+  collections: ''
+  data: _data
+  layouts: _layouts
+  includes: _includes
+collections_config:
+  data:
+    path: _data
+    output: false
+    icon: notes
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  products:
+    path: _products
+    output: true
+    icon: notes
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  categories:
+    path: _categories
+    output: true
+    icon: notes
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+  pages:
+    path: _pages
+    output: true
+    icon: notes
+    disable_add: false
+    disable_add_folder: false
+    disable_file_actions: false
+_inputs:
+  categories:
+    type: multiselect
+    options:
+      allow_create: true
+      empty_type: array
+    cascade: true
+  tags:
+    type: multiselect
+    options:
+      allow_create: true
+      empty_type: array
+    cascade: true
+  map:
+    type: text
+    comment: Update the map location and display settings.
+    cascade: true
+  latitude:
+    type: text
+    comment: Coordinates for the center marker on the map.
+    cascade: true
+  longitude:
+    type: text
+    comment: Coordinates for the center marker on the map.
+    cascade: true
+  zoom:
+    type: text
+    comment: The zoom level for the map.
+    cascade: true
+  pricing_table:
+    type: text
+    comment: Update the information in the pricing tables.
+    cascade: true
+  highlight:
+    type: text
+    comment: Emphasis the text
+    cascade: true
+  color:
+    type: color
+    comment: The background color used in the plan name and call to action.
+    cascade: true
+  new_window:
+    type: text
+    comment: Open link in new window
+    cascade: true
+  description:
+    type: textarea
+    comment: This is used for facebook shares of the page and google indexing
+    cascade: true
+_select_data:
+  author:
+    name: Snipcart's Geeks
+    email: geeks@snipcart.com
+    twitter: snipcart
+  social:
+    name: Multilingual Snipcart Template
+    links: >-
+      Multilingual Snipcart Template -
+      https://github.com/snipcart/demo-cloudcannon
+  langs:
+    - en
+    - fr
+  t:
+    default_lang: en
+    en:
+      title: Roger's Potato Shack
+      buyBtn: Buy it for
+      decimal_sep: .
+      change_lang: Switch Language
+      pages_label: Pages
+      view_cart: View Cart
+    fr:
+      title: La Cantine à Roger
+      buyBtn: Acheter pour
+      decimal_sep: ','
+      change_lang: Changer de langue
+      pages_label: Pages
+      view_cart: Voir le panier
+  jekyll-archives:
+    enabled:
+      - categories
+  social_icons:
+    - Email
+    - Facebook
+    - Google Plus
+    - Instagram
+    - LinkedIn
+    - Pinterest
+    - Tumblr
+    - Twitter
+    - YouTube
+    - RSS
+_structures: {}
+_editables: {}
+data_config: {}
+timezone: Etc/UTC
