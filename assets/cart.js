@@ -1,130 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart Example</title>
-    <style>
-        /* Add your styles for the cart here */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
+var cart = {};
 
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+if (typeof(Storage) !== "undefined" && localStorage.cart) {
+	cart = JSON.parse(localStorage.cart);
+}
 
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
+if(window.location.hash) {
+	var itemId = window.location.hash.substring(1);
+	if (catalog[itemId]){
+		if(cart[itemId]){
+			cart[itemId]++;
+		}
+		else{
+			cart[itemId] = 1;
+		}
+		localStorage.cart = JSON.stringify(cart);
+	}
+}
 
-        button {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+function addItem(itemId){
+	cart[itemId]++;
+	localStorage.cart = JSON.stringify(cart);
+	drawCart();
+}
 
-<div id="cartcontent"></div>
+function subtractItem(itemId){
+	cart[itemId]--;
+	if(cart[itemId] == 0){
+		removeItem(itemId);
+	}else{
+		drawCart();
+		localStorage.cart = JSON.stringify(cart);
+	}
+}
 
-<script>
-class ShoppingCart {
-    constructor() {
-        this.cart = this.loadCart();
-        this.catalog = {
-            // Replace with your actual catalog data
-            'itemId1': { name: 'Item 1', description: 'Description 1', price: 10.99 },
-            'itemId2': { name: 'Item 2', description: 'Description 2', price: 19.99 },
-            // Add more items as needed
-        };
+function removeItem(itemId){
+	delete cart[itemId];
+	drawCart();
+	localStorage.cart = JSON.stringify(cart);	;
+}
 
-        this.setupEventListeners();
-        this.drawCart();
-    }
+var cartHtml = "";
 
-    loadCart() {
-        if (typeof Storage !== "undefined" && localStorage.cart) {
-            return JSON.parse(localStorage.cart);
-        } else {
-            return {};
-        }
-    }
+function drawCart(){
+	if (Object.keys(cart).length == 0){
+		cartHtml = "<h2>Cart is empty</h2>";
+	}else{
+		var total = 0 ;
+		cartHtml = `<table><tr><td>Item</td><td>Description</td><td colspan=2>Qty.</td><td>Price</td></tr>`;
+		for (const item in cart) {
+			cartHtml += `<tr><td>${catalog[item].name}</td><td>${catalog[item].description}</td><td>${cart[item]}</td>
+			<td>
+			<button onclick="addItem('${item}')">+</button>
+			<button onclick="subtractItem('${item}')">-</button>
+			<button onclick="removeItem('${item}')">🗑</button>
+			</td>
+			<td>${(catalog[item].price * cart[item]).toFixed(2)}</td></tr>`;
+			total += catalog[item].price * cart[item];
+		}
+		cartHtml += `<tr><td>TOTAL</td><td></td><td></td><td></td><td>${(total).toFixed(2)}</td></tr>`;
+		cartHtml += `</table><button onclick="window.location='/checkout'"><h4>Proceed to Checkout</h4></button>`;
+		
+	}
 
-    updateLocalStorage() {
-        localStorage.cart = JSON.stringify(this.cart);
-    }
+	document.getElementById("cartcontent").innerHTML = cartHtml;
+		
+}
 
-    addItem(itemId) {
-        if (this.catalog[itemId]) {
-            this.cart[itemId] = (this.cart[itemId] || 0) + 1;
-            this.updateLocalStorage();
-            this.drawCart();
-        }
-    }
-
-    subtractItem(itemId) {
-        if (this.cart[itemId] > 0) {
-            this.cart[itemId]--;
-            if (this.cart[itemId] === 0) {
-                this.removeItem(itemId);
-            } else {
-                this.updateLocalStorage();
-                this.drawCart();
-            }
-        }
-    }
-
-    removeItem(itemId) {
-        delete this.cart[itemId];
-        this.updateLocalStorage();
-        this.drawCart();
-    }
-
-    drawCart() {
-        const cartContent = document.getElementById("cartcontent");
-
-        if (Object.keys(this.cart).length === 0) {
-            cartContent.innerHTML = "<h2>Cart is empty</h2>";
-        } else {
-            let cartHtml = `<table><tr><th>Item</th><th>Description</th><th>Qty.</th><th>Actions</th><th>Price</th></tr>`;
-            let total = 0;
-
-            for (const itemId in this.cart) {
-                const item = this.catalog[itemId];
-                const quantity = this.cart[itemId];
-
-                cartHtml += `<tr>
-                    <td>${item.name}</td>
-                    <td>${item.description}</td>
-                    <td>${quantity}</td>
-                    <td>
-                        <button onclick="shoppingCart.addItem('${itemId}')">+</button>
-                        <button onclick="shoppingCart.subtractItem('${itemId}')">-</button>
-                        <button onclick="shoppingCart.removeItem('${itemId}')">🗑</button>
-                    </td>
-                    <td>${(item.price * quantity).toFixed(2)}</td>
-                </tr>`;
-
-                total += item.price * quantity;
-            }
-
-            cartHtml += `<tr><td colspan="4">TOTAL</td><td>${total.toFixed(2)}</td></tr>`;
-            cartHtml += `</table><button onclick="window.location='/checkout'"><h4>Proceed to Checkout</h4></button>`;
-
-            cartContent.innerHTML = cartHtml;
-        }
-    }
-
-    setupEventListeners() {
-        // Add event listeners for your UI elements
-        // Example: document.getElementById('addButton').addEventListener('click', () => this.addItem('itemId'));
-    }
-
-const shoppingCart = new ShoppingCart();
-</script>
-
-</body>
-</html>
+drawCart();
